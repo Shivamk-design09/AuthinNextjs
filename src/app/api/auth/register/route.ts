@@ -6,7 +6,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 
 //status code
-    //200 - 300 --- success
+    //200 - 300 --- success 
     //create = 201
 
     //frontend error == 400-499

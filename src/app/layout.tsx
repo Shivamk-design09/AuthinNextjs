@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import "./globals.css";
 
 
 // meta data is object coming nextjs

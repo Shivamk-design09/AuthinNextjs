@@ -76,7 +76,6 @@ const authoptions: NextAuthOptions = {
         // how we are chossing the session like jwt or database
         strategy:'jwt',
         maxAge:30*24*60*60*1000,  //3o days
-
     },
     pages: {
         signIn:'/login',
