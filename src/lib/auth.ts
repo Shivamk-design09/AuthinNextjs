@@ -6,6 +6,7 @@ import CredentialsProvider from "next-auth/providers/credentials"
 import connectDb from "./db"
 import User from "@/model/User"
 import bcrypt from "bcryptjs"
+import Google from "next-auth/providers/google"
 
 const authoptions: NextAuthOptions = {
     providers: [
@@ -45,9 +46,35 @@ const authoptions: NextAuthOptions = {
                     image:user.image
                 }
             }
+        }),
+
+        // in google we need two value google client and google secret 
+        Google({
+            clientId:process.env.GOOLE_CLIENT_ID!,
+            clientSecret:process.env.GOOLE_CLIENT_SECRET!
         })
     ],
-    callbacks: {  // their are two callbacks jwt and sessions
+    callbacks: { 
+
+        //user comes when google returns any details
+        // account is like google type 
+        
+      async signIn({account,user}) {
+        if(account?.provider == 'google'){
+            await connectDb()
+            
+            let existUser = await User.findOne({email:user?.email})
+            if(!existUser){
+                existUser = User.create({
+                    name:user.name,
+                    email:user?.name
+                })
+            }
+            user.id = existUser._id as string
+        }
+        return true
+      },
+
         //whatever we return in authorize it is store in user paramter of jwt
         // what we return will go in token 
         async jwt({token,user}) {
