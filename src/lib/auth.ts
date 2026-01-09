@@ -56,24 +56,21 @@ const authoptions: NextAuthOptions = {
     ],
     callbacks: { 
 
-        //user comes when google returns any details
-        // account is like google type 
-        
-      async signIn({account,user}) {
+        //this signIn works when user clicks on signIn
+     async signIn({account,user}){
         if(account?.provider == 'google'){
             await connectDb()
-            
-            let existUser = await User.findOne({email:user?.email})
+            let existUser = await User.findOne({emial:user.email})
             if(!existUser){
-                existUser = User.create({
+                existUser = await User.create({
                     name:user.name,
-                    email:user?.name
+                    email:user?.email
                 })
             }
-            user.id = existUser._id as string
+            user.id = existUser._id as string    
         }
         return true
-      },
+     },
 
         //whatever we return in authorize it is store in user paramter of jwt
         // what we return will go in token 

@@ -11,14 +11,13 @@ const Register = () => {
   const [email, setemail] = useState('')
   const [password, setpassword] = useState('')
   const router = useRouter()
-
   const handlerRegister = async(e:React.FormEvent)=>{
     e.preventDefault()
     try{
       const result = await axios.post('/api/auth/register',{
         name,email,password
       })
-      console.log(result)
+      router.push('/login')
     }catch(error){
       console.log(error)
     }  
@@ -73,7 +72,12 @@ const Register = () => {
           <hr className="flex-grow border-gray-500  " />
         </div>
 
-        <button className="flex w-full items-center  justify-center gap-2 py-2 px-4 border border-gray-500 rounded-lg bg-white text-black hover:bg-green-300 transition-colors" onClick={()=>signIn('google')}>
+        <button className="flex w-full items-center  justify-center gap-2 py-2 px-4 border border-gray-500 rounded-lg bg-white text-black hover:bg-green-300 transition-colors"
+         onClick={async ()=>{
+           await signIn('google',{
+            callbackUrl:"/"
+           })
+           }}>
           <span>sign Up with Google</span> <FcGoogle />
         </button>
       </div>

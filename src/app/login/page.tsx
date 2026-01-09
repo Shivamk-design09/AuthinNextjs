@@ -11,8 +11,6 @@ const Login = () => {
   const [password, setpassword] = useState('')
   const router = useRouter()
   // to use session wrap the layout children in session
-  const session= useSession()
-console.log(session?.data?.user)
 
 
  //1) we get signIn from next-auth/react
@@ -21,10 +19,11 @@ console.log(session?.data?.user)
     e.preventDefault()
     try{
       const result = await signIn('credentials',{
-        email,password
+        email,password,redirect:false
       })
+      router.push('/')
     }catch(error){
-      console.log(error)
+      console.log(error)  
     }
   }
   
@@ -57,7 +56,7 @@ console.log(session?.data?.user)
           </div>
           <p className="text-sm text-center mt-1 ">
              Create account ?
-            <span onClick={()=>router.push('/register')} className="text-blue-400 hover:underline">SignUp</span>
+            <span onClick={()=>router.push('/register')} className="text-blue-400 hover:underline">Register</span>
           </p>
           <button type='submit' className="w-full py-2 bg-white text-black font font-semibold rounded-lg hover:bg-green-300 transition-colors">
             Login
@@ -70,7 +69,12 @@ console.log(session?.data?.user)
           <hr className="flex-grow border-gray-500  " />
         </div>
 
-        <button className="flex w-full items-center  justify-center gap-2 py-2 px-4 border border-gray-500 rounded-lg bg-white text-black hover:bg-green-300 transition-colors ">
+        <button className="flex w-full items-center  justify-center gap-2 py-2 px-4 border border-gray-500 rounded-lg bg-white text-black hover:bg-green-300 transition-colors" 
+        onClick={async ()=> {
+          await signIn('google',{
+            callbackUrl:"/"
+          })
+          }}>
           <span>sign in with Google</span> <FcGoogle />
         </button>
       </div>
