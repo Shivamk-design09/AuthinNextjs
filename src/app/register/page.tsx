@@ -11,6 +11,8 @@ const Register = () => {
   const [email, setemail] = useState('')
   const [password, setpassword] = useState('')
   const router = useRouter()
+
+  
   const handlerRegister = async(e:React.FormEvent)=>{
     e.preventDefault()
     try{

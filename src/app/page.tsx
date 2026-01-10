@@ -8,8 +8,9 @@ import { useState } from 'react'
 export default function Home() {
   const { data } = useSession()
   const [loading, setloading] = useState(false)
+
   
-  const handleSignOut = async()=>{
+const handleSignOut = async()=>{
     setloading(true)
     try{
       await signOut()

@@ -14,7 +14,7 @@ export default function RootLayout({children,}: Readonly<{children: React.ReactN
     <html lang="en">
       <body>
         {/* if we wrap the children in sessin we have to make layout as a cilent comp which is not possible 
-        for this make an anothe component and on that comp wrap the children in sesisio */}
+        for this make an another component and on that comp wrap the children in sesision */}
         <ClientProvider>
         {children}
         </ClientProvider>

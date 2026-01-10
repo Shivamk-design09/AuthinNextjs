@@ -50,8 +50,8 @@ const authoptions: NextAuthOptions = {
 
         // in google we need two value google client and google secret 
         Google({
-            clientId:process.env.GOOLE_CLIENT_ID!,
-            clientSecret:process.env.GOOLE_CLIENT_SECRET!
+            clientId:process.env.GOOGLE_CLIENT_ID!,
+            clientSecret:process.env.GOOGLE_CLIENT_SECRET!
         })
     ],
     callbacks: { 
@@ -60,11 +60,12 @@ const authoptions: NextAuthOptions = {
      async signIn({account,user}){
         if(account?.provider == 'google'){
             await connectDb()
-            let existUser = await User.findOne({emial:user.email})
+            let existUser = await User.findOne({email:user.email})
             if(!existUser){
                 existUser = await User.create({
                     name:user.name,
-                    email:user?.email
+                    email:user?.email,
+                    image:user.image
                 })
             }
             user.id = existUser._id as string    
