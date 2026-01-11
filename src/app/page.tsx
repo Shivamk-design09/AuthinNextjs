@@ -3,11 +3,14 @@
 import Image from 'next/image'
 import { signOut, useSession } from 'next-auth/react'
 import { useState } from 'react'
+import { HiPencil } from 'react-icons/hi'
+import { useRouter } from 'next/navigation'
 
 
 export default function Home() {
   const { data } = useSession()
   const [loading, setloading] = useState(false)
+  const router = useRouter()
 
   
 const handleSignOut = async()=>{
@@ -16,16 +19,16 @@ const handleSignOut = async()=>{
       await signOut()
       setloading(false)
     }catch(error){
-setloading(false)
+setloading(false) 
     }
   }
-  
   
   console.log(data)
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-black text-white px-4">
       {data && (
         <div className="w-full max-w-md  border-2  border-white rounded-2xl p-8 shadow-lg text-center relative flex flex-col items-center ">
+          <HiPencil onClick={()=>router.push('/edit')} size={22} color='white' className='absolute right-[50px] top-[15px] cursor-pointer'/>
           {data.user.image &&
             <div className='relative w-[150px] h-[150px] rounded-full border-2 border-white overflow-hidden'>
               <Image src={data.user.image} fill alt='userImage' />
