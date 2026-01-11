@@ -41,3 +41,7 @@ global done
 db connected 
 making singin api on route app/api/auth/register
 
+
+// cloudinary will call in bakckend adn we will upload the image in this process
+// after this cloudinay will give us a url we sill store the url after this 
+
